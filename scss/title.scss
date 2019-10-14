@@ -1,0 +1,36 @@
+@import "./settings";
+
+.title {
+  &__company,
+  &__location,
+  &__name {
+    border-bottom: solid;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  &__location::before {
+    content: " (";
+  }
+
+  &__location::after {
+    content: ")";
+  }
+
+  &__dates {
+    display: block;
+    margin: 0.5em 0;
+
+    font-size: 0.825em;
+  }
+}
+
+@each $modifier, $color in $job-colors-dark {
+  .title--#{$modifier} {
+    .title__company,
+    .title__location,
+    .title__name {
+      border-color: $color;
+    }
+  }
+}

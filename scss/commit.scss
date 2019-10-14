@@ -1,0 +1,43 @@
+@import "./settings";
+
+.commit {
+  position: relative;
+  padding-bottom: 10px;
+
+  &::before,
+  &::after {
+    position: absolute;
+
+    content: "";
+
+    display: block;
+
+    border-radius: 50%;
+  }
+
+  &::before {
+    left: -($width + (($dot-dim - $stroke) / 2));
+    top: 4px;
+
+    width: $dot-dim;
+    height: $dot-dim;
+    background-color: $background-color;
+  }
+
+  $inner-dot-dim: $dot-dim / 2;
+
+  &::after {
+    left: -($width + (($inner-dot-dim - $stroke) / 2));
+    top: 4px + ($inner-dot-dim / 2);
+
+    width: $inner-dot-dim;
+    height: $inner-dot-dim;
+    border-radius: 50%;
+  }
+
+  @each $job, $color in $job-colors-dark {
+    &--#{$job}::after {
+      background-color: $color;
+    }
+  }
+}

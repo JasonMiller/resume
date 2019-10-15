@@ -1,0 +1,85 @@
+@function strip-px($x) {
+  @return $x / 1px;
+}
+
+@function encode-color($string) {
+  @if type-of($string)=='color' {
+    $hex: str-slice(ie-hex-str($string), 4);
+    $string: unquote("#{$hex}");
+  }
+
+  $string: '%23'+$string;
+  @return $string;
+}
+
+@function branch-merge($color, $depth, $d) {
+  $width: strip-px($width);
+  $height: strip-px($height);
+  $stroke: strip-px($stroke);
+
+  $color: encode-color($color);
+
+  $width: $width * $depth;
+
+  @return url("data:image/svg+xml;utf8,<svg viewBox='0 0 #{$width} #{$height}' xmlns='http://www.w3.org/2000/svg'>"+ "<path d='#{$d}' stroke='#{$color}' stroke-linecap='round' fill='none' stroke-width='#{$stroke}'/></svg>");
+}
+
+@function branch($color, $depth: 1) {
+  $width: strip-px($width);
+  $height: strip-px($height);
+  $stroke: strip-px($stroke);
+
+  $width: $width * $depth;
+
+  $d: curve-path($width - $stroke / 2, 0,
+      $width - $stroke / 2, $height / 2,
+      $stroke / -2, $height / 2,
+      $stroke / -2, $height - $stroke);
+
+  @return branch-merge($color, $depth, $d);
+}
+
+@function merge($color, $depth: 1) {
+  $width: strip-px($width);
+  $height: strip-px($height);
+  $stroke: strip-px($stroke);
+
+  $width: $width * $depth;
+
+  $d: curve-path($stroke / -2, $stroke,
+      $stroke / -2, $height / 2,
+      $width - $stroke / 2, $height /2,
+      $width - $stroke / 2, $height);
+
+  @return branch-merge($color, $depth, $d);
+}
+
+@mixin branch($color, $depth: 1) {
+  width: $width * $depth;
+  background-image: branch($color, $depth)
+}
+
+@mixin merge($color, $depth: 1) {
+  width: $width * $depth;
+  background-image: merge($color, $depth)
+}
+
+@function curve-path($x1, $y1, $cx1, $cy1, $cx2, $cy2, $x2, $y2) {
+  @return "M #{$x1}, #{$y1} C #{$cx1}, #{$cy1}, #{$cx2}, #{$cy2}, #{$x2}, #{$y2}";
+}
+
+@mixin merges($merges, $depth: 1) {
+  $urls: ();
+  $sizes: ();
+
+  @each $merge in $merges {
+    $urls: append($urls, merge($merge, $depth), $separator: comma);
+    $sizes: append($sizes, $depth * $width, $separator: comma);
+
+    $depth: $depth + 1;
+  }
+
+  width: $width * $depth;
+  background-image: $urls;
+  background-size: $sizes;
+}

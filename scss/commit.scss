@@ -21,7 +21,6 @@
 
     width: $dot-dim;
     height: $dot-dim;
-    background-color: $background-color;
   }
 
   $inner-dot-dim: $dot-dim / 2;
@@ -33,11 +32,5 @@
     width: $inner-dot-dim;
     height: $inner-dot-dim;
     border-radius: 50%;
-  }
-
-  @each $job, $color in $job-colors-dark {
-    &--#{$job}::after {
-      background-color: $color;
-    }
   }
 }

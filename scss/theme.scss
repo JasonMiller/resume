@@ -1,0 +1,150 @@
+@import "./mixins/branch_merge";
+@import "./settings";
+
+@mixin theme($colors: $dark-colors) {
+  $job-colors: map-get($colors, jobs);
+
+  background-color: map-get($colors, background);
+  color: map-get($colors, text);
+
+  a:hover {
+    border-bottom-color: map-get($job-colors, skills);
+  }
+
+  @each $job, $color in $job-colors {
+    .title--#{$job} {
+      .title__company,
+      .title__location,
+      .title__name {
+        border-color: $color;
+      }
+    }
+
+    .branch--#{$job} {
+      border-color: $color;
+
+      &::after {
+        @include branch($color);
+      }
+    }
+
+    .commit--#{$job}::after {
+      background-color: $color;
+    }
+  }
+
+  .commit::before {
+    background-color: map-get($colors, background);
+  }
+
+  .merge--pac.merge--dt::before {
+    @include merges(map-get($job-colors, pac) map-get($job-colors, dt));
+  }
+
+  .merge--neu.merge--partners::before {
+    @include merges(map-get($job-colors, neu) map-get($job-colors, partners));
+  }
+
+  .merge--microsoft::before {
+    @include merges(map-get($job-colors, microsoft));
+  }
+}
+
+$transition-duration: 500ms;
+
+body {
+  transition-property: background-color, color;
+  transition-duration: $transition-duration;
+}
+
+.merge::before,
+.branch::after {
+  transition: background-image $transition-duration;
+}
+
+.branch,
+.title__company,
+.title__location,
+.title__name {
+  transition: border-color $transition-duration;
+}
+
+.commit::before,
+.commit::after {
+  transition: background-color $transition-duration;
+}
+
+label[for=theme] {
+  transition-property: background-color, box-shadow;
+  transition-duration: $transition-duration;
+}
+
+body {
+  @include theme($dark-colors);
+}
+
+body[data-theme] {
+  @include theme($light-colors);
+}
+
+label[for=theme] {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 1;
+
+  display: block;
+  height: 40px;
+  width: 40px;
+
+  overflow: hidden;
+
+  background: map-get($dark-colors, background);
+  box-shadow: 0 0 10px rgba(map-get($light-colors, background), 0.3);
+  border-radius: 50%;
+
+  &::before,
+  &::after {
+    content: "";
+
+    position: absolute;
+    top: 8px;
+    left: 8px;
+
+    display: block;
+    height: 24px;
+    width: 24px;
+
+    transition: transform $transition-duration;
+    transform-origin: 100% 400%;
+  }
+
+  &::before {
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' stroke-width='2' stroke='#{encode-color(map-get($dark-colors, text))}' fill='none'><path d='M10.423839, 3 C10.1490474, 3.80837289 10, 4.67486099 10, 5.57616098 C10, 9.99443898 13.581722, 13.576161 18, 13.576161 C18.9013, 13.576161 19.7677881, 13.4271135 20.576161, 13.152322 C19.5038921, 16.3066875 16.516978, 18.576161 13, 18.576161 C8.581722, 18.576161 5, 14.994439 5, 10.576161 C5, 7.05918297 7.26947343, 4.07226889 10.423839, 3 Z'></path></svg>");
+    transform: rotate(0deg)
+  }
+
+  &::after {
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' stroke-width='2' stroke='#{encode-color(map-get($light-colors, text))}' fill='#{encode-color(map-get($light-colors, text))}'><circle cx='12' cy='12' r='4'/><path d='M12 5L12 3M12 21L12 19M5 12L2 12 5 12zM22 12L19 12 22 12zM16.9497475 7.05025253L19.0710678 4.92893219 16.9497475 7.05025253zM4.92893219 19.0710678L7.05025253 16.9497475 4.92893219 19.0710678zM16.9497475 16.9497475L19.0710678 19.0710678 16.9497475 16.9497475zM4.92893219 4.92893219L7.05025253 7.05025253 4.92893219 4.92893219z'/></svg>");
+    transform: rotate(-45deg)
+  }
+}
+
+input[id=theme] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+
+  &:checked + label {
+    background-color: map-get($light-colors, background);
+    box-shadow: 0 0 10px rgba(map-get($dark-colors, background), 0.3);
+  }
+
+  &:checked + label::before {
+    transform: rotate(45deg);
+  }
+
+  &:checked + label::after {
+    transform: rotate(0deg);
+  }
+}

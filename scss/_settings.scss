@@ -6,9 +6,6 @@ $max-depth: 4;
 
 $dot-dim: ($stroke * 3);
 
-$background-color: #272822;
-$escaped-background-color: '%23272822';
-
 // Apple Colors
 $blue-light:   rgb(0, 122, 255);
 $blue-dark:    rgb(10, 132, 255);
@@ -29,24 +26,32 @@ $teal-dark:    rgb(100, 210, 255);
 $yellow-light: rgb(255, 204, 0);
 $yellow-dark:  rgb(255, 214, 10);
 
-$job-colors-dark: (
-  skills:    $indigo-dark,
-  zla:       $orange-dark,
-  expy:      $purple-dark,
-  dt:        $yellow-dark,
-  pac:       $red-dark,
-  partners:  $blue-dark,
-  microsoft: $green-dark,
-  neu:       $pink-dark
+$dark-colors: (
+  background: #1c1c1d,
+  text:       #f2f2f2,
+  jobs: (
+    skills:    $indigo-dark,
+    zla:       $orange-dark,
+    expy:      $purple-dark,
+    dt:        $yellow-dark,
+    pac:       $red-dark,
+    partners:  $blue-dark,
+    microsoft: $green-dark,
+    neu:       $pink-dark
+  )
 );
 
-$job-colors-light: (
-  skills:    $indigo-light,
-  zla:       $orange-light,
-  expy:      $purple-light,
-  dt:        $yellow-light,
-  pac:       $red-light,
-  partners:  $blue-light,
-  microsoft: $green-light,
-  neu:       $pink-light
-);
+$light-colors: (
+  background: #fafafa,
+  text: #333333,
+  jobs: (
+    skills:    $indigo-light,
+    zla:       $orange-light,
+    expy:      $purple-light,
+    dt:        $yellow-light,
+    pac:       $red-light,
+    partners:  $blue-light,
+    microsoft: $green-light,
+    neu:       $pink-light
+  )
+)

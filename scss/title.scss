@@ -24,13 +24,3 @@
     font-size: 0.825em;
   }
 }
-
-@each $modifier, $color in $job-colors-dark {
-  .title--#{$modifier} {
-    .title__company,
-    .title__location,
-    .title__name {
-      border-color: $color;
-    }
-  }
-}

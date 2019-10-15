@@ -7,8 +7,9 @@
   <!-- <link rel="stylesheet" href="css/print.css"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 </head>
-
 <body>
+  <input type="checkbox" id="theme" onchange="event.target.checked ? document.body.setAttribute('data-theme', true) : document.body.removeAttribute('data-theme');">
+  <label for="theme"></label>
   <header>
     <h1>Jason N. Miller</h1>
     <p>
@@ -244,5 +245,7 @@
       First Place, Amazing Husky Hunt, 2009
     </li>
   </ul>
+
+  <script src="./js/index.js"></script>
 </body>
 </html>

@@ -129,7 +129,7 @@ ul {
   font-size: 12px;
   list-style: none;
 
-  border-left: solid 1px;
+  border-left: solid 2px;
 
   &::before {
     position: absolute;
@@ -142,7 +142,8 @@ ul {
   }
 }
 
-@each $job, $color in $job-colors-light {
+@each $job, $color in map-get($light-colors, jobs) {
+  $color: map-get(map-get($light-colors, jobs), skills);
   .commit--#{$job}::before {
     color: $color;
   }
@@ -150,10 +151,14 @@ ul {
   .commit--#{$job} {
     border-color: $color;
   }
+
+  .title--#{$job} .title__company {
+    // border-bottom: solid 1px $color;
+  }
 }
 
 .branch--skills {
-  border-left: solid 1px map-get($job-colors-light, skills);
+  border-left: map-get(map-get($light-colors, jobs), skills) solid 2px;
   margin-left: -16px;
   padding-left: 16px;
 }

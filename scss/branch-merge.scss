@@ -4,8 +4,9 @@
   position: relative;
 
   border-left: solid $stroke;
-  padding-left: $width - $stroke;
   margin-bottom: $height;
+  padding-left: $width - $stroke;
+  padding-right: $width - $stroke;
 
   &::after {
     content: "";

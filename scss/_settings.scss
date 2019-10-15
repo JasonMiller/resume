@@ -25,10 +25,21 @@ $teal-light:   rgb(90, 200, 250);
 $teal-dark:    rgb(100, 210, 255);
 $yellow-light: rgb(255, 204, 0);
 $yellow-dark:  rgb(255, 214, 10);
+$gray-2-light: rgb(174, 174, 178);
+$gray-2-dark:  rgb(99, 99, 102);
+$gray-3-light: rgb(199, 199, 204);
+$gray-3-dark:  rgb(72, 72, 74);
+$gray-4-light: rgb(209, 209, 214);
+$gray-4-dark:  rgb(58, 58, 60);
+$gray-5-light: rgb(229, 229, 234);
+$gray-5-dark:  rgb(44, 44, 46);
+$gray-6-light: rgb(242, 242, 247);
+$gray-6-dark:  rgb(28, 28, 30);
 
 $dark-colors: (
-  background: #1c1c1d,
-  text:       #f2f2f2,
+  background:  $gray-6-dark,
+  text:        $gray-6-light,
+  icon:        $gray-2-light,
   jobs: (
     skills:    $indigo-dark,
     zla:       $orange-dark,
@@ -42,8 +53,9 @@ $dark-colors: (
 );
 
 $light-colors: (
-  background: #fafafa,
-  text: #333333,
+  background: $gray-6-light,
+  text:       $gray-6-dark,
+  icon:       $gray-2-dark,
   jobs: (
     skills:    $indigo-light,
     zla:       $orange-light,
